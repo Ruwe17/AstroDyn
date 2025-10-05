@@ -43,15 +43,35 @@
     background: var(--bg-2);
     border-bottom: 1px solid var(--border);
   }
-  
+
   .sidebar-left, .sidebar-right {
     background: var(--bg-2);
     padding: 20px;
   }
   
-  .sidebar-left { grid-area: sidebar-left; border-right: 1px solid var(--border); }
+  .sidebar-left {
+    grid-area: sidebar-left;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   .sidebar-right { grid-area: sidebar-right; border-left: 1px solid var(--border); }
   .hint { color: var(--text-muted); margin-bottom: 10px; }
+  .sidebar-left p:last-of-type {
+    margin-top: auto;
+    background: rgba(19, 39, 51, 0.85);
+    color: var(--text-muted);
+    padding: 18px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+    letter-spacing: 0.01em;
+    transition: background 0.3s;
+  }
   
   /* BOTÕES DE LOCAL */
   .location-btn {
@@ -96,9 +116,6 @@
     transition: opacity 0.4s ease, visibility 0.3s ease;
   }
   
-  .show-button { visibility: visible; opacity: 1; }
-  .hide-button { visibility: hidden; opacity: 0; }
-  
   
   /* BOTÃO IMPACTO */
   .bottom-cta {
@@ -134,9 +151,9 @@
     justify-content: center;
     align-items: center;
   }
-  .results-container { text-align: center; max-width: 900px; position: relative; }
+  .results-container { text-align: center; max-width: 900px;  }
   .back-arrow {
-    position: absolute;
+
     top: 16px;
     left: 20px;
     background: var(--accent);
@@ -268,3 +285,145 @@
       border-top: 2px solid #1f3444;
     }
   }
+  
+/* ========== SEGUNDA TELA (RESULTADOS) ========== */
+.results-screen {
+  background: var(--bg);
+  min-height: 100vh;
+  overflow-y: auto;
+  padding: 24px 0; /* padding vertical; sem padding horizontal para alinhar com as margens da container */
+}
+
+/* Container centralizado, com respiro lateral e espaço para a seta fixa */
+.results-container {
+  max-width: 1200px;           /* largura total do conjunto (ajuste conforme quiser) */
+  margin: 0 auto;              /* centraliza o bloco */
+  padding: 80px 24px 40px;     /* espaço superior para a seta + respiro lateral */
+  position: relative;          /* referência para elementos posicionados dentro se necessário */
+}
+
+/* Botão voltar (seta) CENTRALIZADO no topo da viewport */
+.back-arrow {
+  position: fixed;             /* fixa no topo da tela como no mock */
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%); /* centraliza horizontalmente */
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: var(--shadow-1);
+  z-index: 1000;
+}
+
+.back-arrow:hover {
+  background: var(--accent-hover);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.results-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 12px;          
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.results-intro {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-align: left;
+  margin-bottom: 32px;         
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;                   
+  align-items: stretch;        /* alturas uniformes */
+}
+
+
+.result-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  transition: 0.3s ease;
+  min-height: 58vh;            
+}
+
+.result-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(255, 59, 59, 0.15);
+}
+
+.result-card h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.result-card p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 15px;
+}
+
+.result-card p:last-child { margin-bottom: 0; }
+
+.result-card ul,
+.result-card ol {
+  margin: 15px 0;
+  padding-left: 25px;
+  color: var(--text);
+}
+
+.result-card li {
+  margin-bottom: 10px;
+  line-height: 1.7;
+}
+
+.result-card strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Responsivo */
+@media (max-width: 1200px) {
+  .results-grid { grid-template-columns: repeat(2, 1fr); }
+  .result-card { min-height: 50vh; }
+}
+
+@media (max-width: 768px) {
+  .results-container { padding-top: 90px; }
+  .results-container h2 { font-size: 2rem; }
+  .results-grid { grid-template-columns: 1fr; }
+  .result-card { padding: 20px; min-height: 42vh; }
+  .result-card h3 { font-size: 1.5rem; }
+  .back-arrow { width: 52px; height: 52px; font-size: 1.4rem; top: 12px; }
+}
+
+@media (max-width: 480px) {
+  .results-screen { padding: 20px 15px; }
+  .results-container h2 { font-size: 1.6rem; }
+  .results-intro { font-size: 1rem; }
+  .result-card h3 { font-size: 1.3rem; }
+  .result-card p { font-size: 0.95rem; }
+}
+
+.show-button { visibility: visible; opacity: 1; transition: 2.5s; }
+.hide-button { visibility: hidden; opacity: 0; transition: 0s; }
