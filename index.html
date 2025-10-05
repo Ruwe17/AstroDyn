@@ -82,21 +82,6 @@
     #o-que-vera li:hover{ transform:translateY(-4px); border-color:var(--hover-blue); }
     #o-que-vera li::before{ content:"●"; color:var(--marker); font-size:1.5rem; margin-right:.5rem; }
 
-    /* Demonstração */
-    #demo{
-      background:var(--bg-2); border-radius:12px; padding:3rem; border:1px solid var(--border);
-    }
-    #demo ol{ margin-bottom:2rem; padding-left:1.5rem; }
-    #demo li{ margin-bottom:1rem; color:var(--text-list); }
-    #demo .demo-tip{
-      background:var(--surface); padding:1rem; border-left:4px solid var(--marker);
-      margin-bottom:2rem; border-radius:4px;
-    }
-    #demo .demo-image{
-      background:var(--canvas-bg); border:2px solid var(--border); border-radius:8px;
-      padding:2rem; text-align:center; min-height:300px; display:flex; align-items:center; justify-content:center;
-    }
-    #demo .demo-image img{ max-width:100%; height:auto; border-radius:4px; }
 
     /* Benefícios */
     #beneficios ul{
@@ -112,17 +97,44 @@
     #beneficios strong{ color:var(--white); font-size:1.1rem; }
 
     /* Quem somos */
-    #quem-somos{
-      background:var(--sidebar-bg); border-radius:12px; padding:3rem; border:1px solid var(--sidebar-border); text-align:center;
+    #quem-somos {
+      background: var(--sidebar-bg);
+      border-radius: 12px;
+      padding: 3rem;
+      border: 1px solid var(--sidebar-border);
+      /* Remova text-align:center */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
     }
-    #quem-somos p{
-      font-size:1.1rem; margin-bottom:2rem; color:var(--sidebar-text); max-width:800px; margin-left:auto; margin-right:auto;
+
+    #quem-somos .quem-texto {
+      flex: 1;
+      text-align: left;
     }
-    #quem-somos .team-photo{
-      max-width:600px; width:100%; margin:2rem auto 0; border-radius:12px; border:2px solid var(--card-border);
-      overflow:hidden; background:var(--surface); min-height:300px; display:flex; align-items:center; justify-content:center;
-    }
-    #quem-somos .team-photo img{ max-width:100%; height:auto; }
+
+    #quem-somos .team-photo {
+        max-width: 350px;
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid var(--card-border);
+        overflow: hidden;
+        background: var(--surface);
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+  }
+
+  #quem-somos .team-photo img {
+      max-width: 80%;
+      height: auto;
+      transform: rotate(270deg);
+      display: block;
+      object-fit: contain;
+  }
 
     /* Responsividade */
     @media (max-width:768px){
@@ -142,9 +154,7 @@
   <nav>
     <a href="#" class="logo">Astrodyn</a>
     <div class="nav-links">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#beneficios">Benefícios</a>
-      <a href="#quem-somos">Quem somos</a>
+      <a href="meteor.html">Simulacao</a>
     </div>
   </nav>
 
@@ -153,7 +163,8 @@
       <h1>Bem-vindo ao Astrodyn</h1>
       <h2>Entenda o impacto cósmico na Terra</h2>
       <p>Asteroides e meteoros fazem parte do nosso universo — e, às vezes, levantam grandes perguntas: como eles afetam nosso planeta? O que mudaria se um impacto ocorresse em um local específico?</p>
-      <p>O Astrodyn foi criado para ajudar você a visualizar e compreender esses cenários de forma simples e intuitiva, sem cálculos complexos.</p>
+      <p>O Astrodyn foi criado para ajudar você a visualizar e compreender esses cenários de forma simples e intuitiva</p>
+      <p class="badge-nasa">Projeto desenvolvido para o NASA Space Apps Challenge.</p>
     </section>
   </header>
 
@@ -161,55 +172,46 @@
     <section id="como-funciona">
       <h3>Como funciona</h3>
       <ol>
-        <li><strong>Escolha um asteroide:</strong> selecione da nossa base com dados públicos da NASA (tamanho e características essenciais).</li>
+        <li><strong>Escolha um asteroide:</strong> selecione da nossa base com dados públicos da NASA</li>
         <li><strong>Defina o local de impacto:</strong> clique no mapa para posicionar o evento.</li>
         <li><strong>Veja os resultados:</strong> o Astrodyn exibe zonas de dano e estimativas aproximadas para aquele local.</li>
       </ol>
+      <p class="nota-impactos">De acordo com o ponto selecionado no mapa, calculamos de forma aproximada os impactos econômico, social e ambiental daquela ação, com faixas de incerteza visíveis.</p>
     </section>
 
     <section id="o-que-vera">
       <h3>O que você vai ver</h3>
       <ul>
-        <li><strong>Zonas de dano:</strong> anéis no mapa indicando impacto leve, moderado e severo.</li>
+        <li><strong>Zonas de dano:</strong> áreas que foram destruidas pelo impacto do meteorito</li>
         <li><strong>Estimativas rápidas:</strong> ordens de grandeza de população e infraestrutura potencialmente afetadas (hospitais, escolas, vias).</li>
-        <li><strong>Baseado em dados da NASA:</strong> usamos informações dos catálogos de asteroides para apoiar estimativas acessíveis e transparentes.</li>
         <li><strong>Notas de incerteza:</strong> deixamos claro que são faixas aproximadas, não uma simulação física detalhada.</li>
-      </ul>
+      </ul> 
     </section>
-
-    <section id="demo">
-      <h3>Demonstração rápida</h3>
-      <ol>
-        <li><strong>Passo 1:</strong> escolha "Apophis (99942)" na lista de asteroides.</li>
-        <li><strong>Passo 2:</strong> clique em uma cidade no mapa (ex.: Recife).</li>
-        <li><strong>Passo 3:</strong> observe os três anéis de impacto e o resumo de população/infra em cada faixa.</li>
-      </ol>
-      <div class="demo-tip"><strong>Dica:</strong> altere o cenário para "litoral" e compare as diferenças.</div>
-      <div class="demo-image">
-        <!-- <img src="caminho-da-demo.jpg" alt="Captura do simulador com três anéis e painel de resumo"> -->
-        <div class="placeholder">[ Imagem: captura do simulador com três anéis e painel de resumo ]</div>
-      </div>
-    </section>
-
     <section id="beneficios">
       <h3>Benefícios do Astrodyn</h3>
       <ul>
         <li><strong>Simples e direto:</strong> visualize cenários em segundos, sem fórmulas.</li>
         <li><strong>Didático:</strong> ideal para aulas, feiras de ciência e projetos de pesquisa inicial.</li>
         <li><strong>Contextual:</strong> estimativas por local, com população e infraestrutura afetadas.</li>
+        <li><strong>Dimensões integradas:</strong> visão consolidada dos efeitos econômicos, sociais e ambientais.</li>
         <li><strong>Transparente:</strong> regras de estimativa claras e notas de incerteza visíveis.</li>
         <li><strong>Leve e acessível:</strong> funciona no navegador, sem instalação.</li>
       </ul>
     </section>
 
     <section id="quem-somos">
-      <h3>Quem somos nós</h3>
-      <p>O Astrodyn é desenvolvido por Daniel Vergara, Felipe Murtinho, Gabriel Ferreira e Francisco Carvalho. Nosso objetivo é apoiar estudantes, cientistas e gestores na compreensão dos impactos de meteoros — incluindo possíveis efeitos ambientais, sociais e econômicos — com uma experiência simples, didática e baseada em dados públicos.</p>
+      <div class="quem-texto">
+        <h3>Quem somos nós</h3>
+        <p>O Astrodyn é desenvolvido por Daniel Vergara, Felipe Murtinho, Gabriel Ferreira e Francisco Carvalho. Nosso objetivo é apoiar estudantes, cientistas e gestores na compreensão dos impactos de meteoros — incluindo possíveis efeitos ambientais, sociais e econômicos — com uma experiência simples, didática e baseada em dados públicos.</p>
+        <p class="nota-missao">Além de mapear zonas de dano, o Astrodyn estimativa, de acordo com o local escolhido no mapa, os impactos econômico, social e ambiental de forma aproximada para apoiar análise de risco e tomada de decisão.</p>
+        <p class="nota-desafio">Projeto participante do NASA Space Apps Challenge.</p>
+      </div>
       <div class="team-photo">
-        <!-- <img src="caminho-da-foto-equipe.jpg" alt="Foto da equipe Astrodyn"> -->
-        <div class="placeholder">[ Foto da equipe Astrodyn ]</div>
+        <img src="imgs_aboutus/imagem_about-us.jpg" alt="Foto da equipe Astrodyn">
       </div>
     </section>
+
+
   </main>
 </body>
 </html>
