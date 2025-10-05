@@ -22,6 +22,7 @@
       <button id="cidade" class="location-btn active" data-location="city"><span class="icon">🏙️</span><span class="label">Centro da Cidade</span></button>
       <button id="litoral" class="location-btn" data-location="coast"><span class="icon">🌊</span><span class="label">Litoral</span></button>
       <button id="rural" class="location-btn" data-location="rural"><span class="icon">🌾</span><span class="label">Rural</span></button>
+      <p>Para realizar nossas estimativas, utilizamos uma grid de análise que cobre uma área de 100km x 100km. Essa grid é composta por 25x25 células, onde cada quadrado individual representa uma área de 4km x 4km. Ao clicar no mapa, o Astrodyn utiliza essa estrutura para calcular de forma aproximada os impactos dentro de cada célula afetada, considerando a população, infraestrutura e características ambientais.Os quadrados que representam a área rural, urbana e oceano respectivamente são a casa, o predio e o quadrado ciano</p>
     </aside>
 
     <!-- Palco central -->
@@ -76,13 +77,13 @@
   <!-- ========== SEGUNDA TELA (RESULTADOS) ========== -->
   <section id="screen-results" class="screen results-screen">
     <div class="results-container">
-      <button id="backBtn" class="back-arrow">⬆</button>
+      <button id="backBtn" class="back-arrow hide-button">⬆</button>
       <h2>Impactos Gerais</h2>
       <p class="results-intro">Resumo das consequências do impacto.</p>
       <div class="results-grid">
-        <div class="result-card"><h3>Socioeconômicos</h3><p>Infraestrutura e população afetadas.</p></div>
-        <div class="result-card"><h3>Ambientais</h3><p>Destruição ecológica e qualidade do ar.</p></div>
-        <div class="result-card"><h3>Tsunami</h3><p>Ondas e alcance da zona costeira.</p></div>
+        <div class="result-card"><h3>Socioeconômicos</h3><p></p></div>
+        <div class="result-card"><h3>Ambientais</h3><p></p></div>
+        <div class="result-card"><h3>Geológicos</h3><p></p></div>
       </div>
     </div>
   </section>
