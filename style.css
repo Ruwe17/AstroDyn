@@ -1,0 +1,270 @@
+:root {
+    --bg: #061018;
+    --bg-2: #0F2230;
+    --surface: #132733;
+    --border: #1F3A4A;
+    --text: #E7F2F7;
+    --text-muted: #AAC1CC;
+    --accent: #FF3B3B;
+    --accent-hover: #E62424;
+    --radius-md: 12px;
+    --shadow-1: 0 6px 20px rgba(0, 0, 0, .25);
+  }
+  
+  /* BASE */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    overflow: hidden;
+  }
+  
+  /* LAYOUT */
+  .screen {
+    display: grid;
+    grid-template-areas:
+      "topbar topbar topbar"
+      "sidebar-left stage sidebar-right";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 240px 1fr 300px;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .topbar {
+    grid-area: topbar;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .sidebar-left, .sidebar-right {
+    background: var(--bg-2);
+    padding: 20px;
+  }
+  
+  .sidebar-left { grid-area: sidebar-left; border-right: 1px solid var(--border); }
+  .sidebar-right { grid-area: sidebar-right; border-left: 1px solid var(--border); }
+  .hint { color: var(--text-muted); margin-bottom: 10px; }
+  
+  /* BOTÕES DE LOCAL */
+  .location-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    background: var(--surface);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: 600;
+  }
+  .location-btn .icon { font-size: 1.3rem; color: #fff; }
+  .location-btn .label { color: #fff !important; }
+  .location-btn:hover { background: #1a3344; }
+  .location-btn.active { border-color: var(--accent); background: rgba(255,59,59,0.1); box-shadow: 0 0 10px rgba(255,59,59,0.25); }
+  
+  /* STAGE */
+  .stage {
+    grid-area: stage;
+    background: radial-gradient(circle at center, #0A1820, var(--bg));
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* CANVAS CENTRALIZADO */
+  .impact-canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 700px;
+    height: 700px;
+    transform: translate(-50%, -50%);
+    background-color: #0b1b26;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    transition: opacity 0.4s ease, visibility 0.3s ease;
+  }
+  
+  .show-button { visibility: visible; opacity: 1; }
+  .hide-button { visibility: hidden; opacity: 0; }
+  
+  
+  /* BOTÃO IMPACTO */
+  .bottom-cta {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    display: grid;
+    place-items: center;
+  }
+  .impact-btn {
+    background: var(--accent);
+    border: none;
+    font-size: 18px;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: var(--shadow-1);
+  }
+  .impact-btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  .impact-btn .impact-arrow { display: none; }
+  .impact-btn.as-arrow .impact-label { display: none; }
+  .impact-btn.as-arrow .impact-arrow { display: inline-block; font-size: 1.2rem; }
+  
+  /* RESULTADOS */
+  .results-screen {
+    background: var(--bg-2);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .results-container { text-align: center; max-width: 900px; position: relative; }
+  .back-arrow {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    background: var(--accent);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+  }
+  .back-arrow:hover { background: var(--accent-hover); }
+  
+  /* RESPONSIVO */
+  @media (max-width: 768px) {
+    .screen {
+      grid-template-areas:
+        "topbar"
+        "stage";
+      grid-template-columns: 1fr;
+      grid-template-rows: 60px auto;
+    }
+    .sidebar-left, .sidebar-right { display: none; }
+  }
+
+  /* Sidebar direita */
+ /* ====== SIDEBAR DIREITA ====== */
+.sidebar-right {
+    background-color: #0f1b24;
+    color: #e6edf3;
+    width: 300px;
+    padding: 20px;
+    border-left: 2px solid #1f3444;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .sidebar-right h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #1976d2;
+    padding-bottom: 6px;
+  }
+  
+  .sidebar-right .hint {
+    font-size: 0.9rem;
+    color: #9ca3af;
+  }
+  
+  /* ====== CARTÕES DOS ASTEROIDES ====== */
+  .asteroide-card {
+    background: linear-gradient(145deg, #15232d, #0e181f);
+    border: 1px solid #22394a;
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 14px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s;
+  }
+  
+  .asteroide-card:hover, .selected {
+    transform: translateY(-3px);
+    border-color: #1ea7fd;
+    box-shadow: 0 0 20px rgba(30, 167, 253, 0.2);
+  }
+  
+  /* ====== IMAGEM CIRCULAR ====== */
+  .asteroide-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #1ea7fd;
+    box-shadow: 0 0 10px rgba(30, 167, 253, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .asteroide-card:hover .asteroide-img {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(30, 167, 253, 0.4);
+  }
+  
+  /* ====== TÍTULO DO ASTEROIDE ====== */
+  .asteroide-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #58a6ff;
+    margin-bottom: 6px;
+  }
+  
+  /* ====== LISTA DE DETALHES ====== */
+  .asteroide-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+  
+  .asteroide-lista li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #cbd5e1;
+  }
+  
+  .asteroide-lista li::before {
+    content: "• ";
+    color: #00bcd4;
+  }
+  
+  /* ====== SCROLL & RESPONSIVIDADE ====== */
+  .sidebar-right::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .sidebar-right::-webkit-scrollbar-thumb {
+    background-color: #1ea7fd33;
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 900px) {
+    .sidebar-right {
+      width: 100%;
+      border-left: none;
+      border-top: 2px solid #1f3444;
+    }
+  }

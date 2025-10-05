@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação de Impacto de Asteroide</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="no-scroll">
+
+  <!-- ========== PRIMEIRA TELA ========== -->
+  <section id="screen-impact" class="screen">
+    <header class="topbar">
+      <h1>Simulação de Impacto</h1>
+      <div class="status">Escolha local e asteroide</div>
+    </header>
+
+    <!-- Sidebar esquerda -->
+    <aside class="sidebar-left" id="sidebarLeft">
+      <h3>Local do Impacto</h3>
+      <p class="hint">Escolha onde simular o impacto</p>
+      <button id="cidade" class="location-btn active" data-location="city"><span class="icon">🏙️</span><span class="label">Centro da Cidade</span></button>
+      <button id="litoral" class="location-btn" data-location="coast"><span class="icon">🌊</span><span class="label">Litoral</span></button>
+      <button id="rural" class="location-btn" data-location="rural"><span class="icon">🌾</span><span class="label">Rural</span></button>
+    </aside>
+
+    <!-- Palco central -->
+    <main class="stage">
+      <!-- bola aparece apenas quando nenhum local ativo -->
+      <canvas id="impactCanvas" class="impact-canvas"></canvas>
+      <div class="bottom-cta">
+        <button id="impactCta" class="impact-btn hide-button">
+          <span class="impact-label">Impacto</span>
+          <span class="impact-arrow">⬇<i class="fi fi-rr-arrow-small-down"></i></span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Sidebar direita -->
+    <aside class="sidebar-right">
+        <h3>Asteroide</h3>
+        <p class="hint">Selecione um asteroide da NASA</p>
+      
+        <div id="icarus" class="asteroide-card selected">
+          <img src="imagem_asteroides/image-removebg-preview (2).png" alt="Imagem do asteroide Icarus" class="asteroide-img">
+          <p class="asteroide-title">Icarus (1566)</p>
+          <ul class="asteroide-lista">
+            <li>Diâmetro: 1.0 km</li>
+            <li>Classe: APO | PHA: Sim</li>
+            <li>Raio de impacto (tiles): 4</li>
+          </ul>
+        </div>
+      
+        <div id="phaethon" class="asteroide-card">
+          <img src="imagem_asteroides/image-removebg-preview (1).png" alt="Imagem do asteroide 3200 Phaethon" class="asteroide-img">
+          <p class="asteroide-title">Phaethon (3200)</p>
+          <ul class="asteroide-lista">
+            <li>Diâmetro: 6.25 km</li>
+            <li>Classe: APO | PHA: Sim</li>
+            <li>Raio de impacto (tiles): 12 (limitado)</li>
+          </ul>
+        </div>
+      
+        <div id="apophis" class="asteroide-card">
+          <img src="imagem_asteroides/image-removebg-preview.png" alt="Imagem do asteroide 99942 Apophis" class="asteroide-img">
+          <p class="asteroide-title">Apophis (99942)</p>
+          <ul class="asteroide-lista">
+            <li>Diâmetro: 0.34 km</li>
+            <li>Classe: ATE | PHA: Sim</li>
+            <li>Raio de impacto (tiles): 2</li>
+          </ul>
+        </div>
+      </aside>
+  </section>
+
+  <!-- ========== SEGUNDA TELA (RESULTADOS) ========== -->
+  <section id="screen-results" class="screen results-screen">
+    <div class="results-container">
+      <button id="backBtn" class="back-arrow">⬆</button>
+      <h2>Impactos Gerais</h2>
+      <p class="results-intro">Resumo das consequências do impacto.</p>
+      <div class="results-grid">
+        <div class="result-card"><h3>Socioeconômicos</h3><p>Infraestrutura e população afetadas.</p></div>
+        <div class="result-card"><h3>Ambientais</h3><p>Destruição ecológica e qualidade do ar.</p></div>
+        <div class="result-card"><h3>Tsunami</h3><p>Ondas e alcance da zona costeira.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

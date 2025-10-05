@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Astrodyn - Entenda o impacto cósmico na Terra</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root{
+      --bg:#061018; --bg-2:#0F2230; --surface:#132733; --border:#1F3A4A;
+      --text:#E7F2F7; --text-muted:#AAC1CC; --accent:#FF3B3B; --accent-hover:#E62424;
+      --white:#FFFFFF; --hover-location:#1a3344; --gradient-center:#0A1820;
+      --canvas-bg:#0b1b26; --sidebar-bg:#0f1b24; --sidebar-text:#e6edf3;
+      --sidebar-border:#1f3444; --title-underline:#1976d2; --card-border:#22394a;
+      --hover-blue:#1ea7fd; --marker:#00bcd4; --text-secondary:#9ca3af; --text-list:#cbd5e1;
+    }
+
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.6;
+    }
+
+    /* Navegação */
+    nav{
+      background:var(--surface); border-bottom:1px solid var(--border);
+      padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center;
+      position:sticky; top:0; z-index:100;
+    }
+    nav .logo{ font-size:1.5rem; font-weight:bold; color:var(--white); text-decoration:none; }
+    nav .nav-links{ display:flex; gap:2rem; align-items:center; }
+    nav a{ color:var(--text-muted); text-decoration:none; transition:color .3s; }
+    nav a:hover{ color:var(--white); }
+
+    /* Hero */
+    #hero{
+      padding:4rem 2rem; text-align:center;
+      background:linear-gradient(180deg,var(--bg) 0%,var(--gradient-center) 50%,var(--bg-2) 100%);
+    }
+    #hero h1{ font-size:3rem; margin-bottom:1rem; color:var(--white); }
+    #hero h2{ font-size:1.8rem; color:var(--marker); margin-bottom:1.5rem; }
+    #hero p{ font-size:1.1rem; max-width:800px; margin:0 auto 2rem; color:var(--text-muted); }
+
+    /* Apenas imagem do mapa no hero */
+    #hero .hero-image{
+      max-width:900px; width:100%; margin:3rem auto 0;
+      border-radius:12px; border:2px solid var(--border);
+      box-shadow:0 8px 32px rgba(0,0,0,.3);
+      background:var(--canvas-bg);
+      padding:2rem; display:flex; align-items:center; justify-content:center; min-height:400px;
+    }
+    #hero .hero-image img{ max-width:100%; height:auto; border-radius:8px; }
+    .placeholder{ color:var(--text-secondary); font-size:1.2rem; text-align:center; font-style:italic; }
+
+    /* Seções gerais */
+    section{ padding:4rem 2rem; max-width:1200px; margin:0 auto; }
+    section h3{
+      font-size:2rem; margin-bottom:2rem; color:var(--white);
+      border-bottom:3px solid var(--title-underline); padding-bottom:.5rem; display:inline-block;
+    }
+
+    /* Como funciona */
+    #como-funciona ol{ list-style:none; counter-reset:step; }
+    #como-funciona li{
+      counter-increment:step; margin-bottom:2rem; padding-left:4rem; position:relative; font-size:1.1rem;
+    }
+    #como-funciona li::before{
+      content:counter(step); position:absolute; left:0; top:0;
+      background:var(--accent); color:var(--white); width:2.5rem; height:2.5rem; border-radius:50%;
+      display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem;
+    }
+    #como-funciona strong{ color:var(--marker); }
+
+    /* O que você vai ver */
+    #o-que-vera ul{
+      list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem;
+    }
+    #o-que-vera li{
+      background:var(--surface); padding:1.5rem; border-radius:8px; border:1px solid var(--card-border);
+      transition:transform .3s, border-color .3s;
+    }
+    #o-que-vera li:hover{ transform:translateY(-4px); border-color:var(--hover-blue); }
+    #o-que-vera li::before{ content:"●"; color:var(--marker); font-size:1.5rem; margin-right:.5rem; }
+
+    /* Demonstração */
+    #demo{
+      background:var(--bg-2); border-radius:12px; padding:3rem; border:1px solid var(--border);
+    }
+    #demo ol{ margin-bottom:2rem; padding-left:1.5rem; }
+    #demo li{ margin-bottom:1rem; color:var(--text-list); }
+    #demo .demo-tip{
+      background:var(--surface); padding:1rem; border-left:4px solid var(--marker);
+      margin-bottom:2rem; border-radius:4px;
+    }
+    #demo .demo-image{
+      background:var(--canvas-bg); border:2px solid var(--border); border-radius:8px;
+      padding:2rem; text-align:center; min-height:300px; display:flex; align-items:center; justify-content:center;
+    }
+    #demo .demo-image img{ max-width:100%; height:auto; border-radius:4px; }
+
+    /* Benefícios */
+    #beneficios ul{
+      list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem;
+    }
+    #beneficios li{
+      background:var(--surface); padding:2rem; border-radius:8px; border:1px solid var(--card-border);
+      position:relative; padding-left:3.5rem;
+    }
+    #beneficios li::before{
+      content:"✓"; position:absolute; left:1rem; top:1.8rem; color:var(--marker); font-size:1.8rem; font-weight:bold;
+    }
+    #beneficios strong{ color:var(--white); font-size:1.1rem; }
+
+    /* Quem somos */
+    #quem-somos{
+      background:var(--sidebar-bg); border-radius:12px; padding:3rem; border:1px solid var(--sidebar-border); text-align:center;
+    }
+    #quem-somos p{
+      font-size:1.1rem; margin-bottom:2rem; color:var(--sidebar-text); max-width:800px; margin-left:auto; margin-right:auto;
+    }
+    #quem-somos .team-photo{
+      max-width:600px; width:100%; margin:2rem auto 0; border-radius:12px; border:2px solid var(--card-border);
+      overflow:hidden; background:var(--surface); min-height:300px; display:flex; align-items:center; justify-content:center;
+    }
+    #quem-somos .team-photo img{ max-width:100%; height:auto; }
+
+    /* Responsividade */
+    @media (max-width:768px){
+      nav{ flex-direction:column; gap:1rem; }
+      nav .nav-links{ flex-direction:column; gap:1rem; }
+      #hero h1{ font-size:2rem; }
+      #hero h2{ font-size:1.3rem; }
+      section{ padding:2rem 1rem; }
+      section h3{ font-size:1.5rem; }
+      #como-funciona li{ padding-left:3rem; }
+      #como-funciona li::before{ width:2rem; height:2rem; font-size:1rem; }
+      #beneficios ul, #o-que-vera ul{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#" class="logo">Astrodyn</a>
+    <div class="nav-links">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#beneficios">Benefícios</a>
+      <a href="#quem-somos">Quem somos</a>
+    </div>
+  </nav>
+
+  <header>
+    <section id="hero">
+      <h1>Bem-vindo ao Astrodyn</h1>
+      <h2>Entenda o impacto cósmico na Terra</h2>
+      <p>Asteroides e meteoros fazem parte do nosso universo — e, às vezes, levantam grandes perguntas: como eles afetam nosso planeta? O que mudaria se um impacto ocorresse em um local específico?</p>
+      <p>O Astrodyn foi criado para ajudar você a visualizar e compreender esses cenários de forma simples e intuitiva, sem cálculos complexos.</p>
+    </section>
+  </header>
+
+  <main>
+    <section id="como-funciona">
+      <h3>Como funciona</h3>
+      <ol>
+        <li><strong>Escolha um asteroide:</strong> selecione da nossa base com dados públicos da NASA (tamanho e características essenciais).</li>
+        <li><strong>Defina o local de impacto:</strong> clique no mapa para posicionar o evento.</li>
+        <li><strong>Veja os resultados:</strong> o Astrodyn exibe zonas de dano e estimativas aproximadas para aquele local.</li>
+      </ol>
+    </section>
+
+    <section id="o-que-vera">
+      <h3>O que você vai ver</h3>
+      <ul>
+        <li><strong>Zonas de dano:</strong> anéis no mapa indicando impacto leve, moderado e severo.</li>
+        <li><strong>Estimativas rápidas:</strong> ordens de grandeza de população e infraestrutura potencialmente afetadas (hospitais, escolas, vias).</li>
+        <li><strong>Baseado em dados da NASA:</strong> usamos informações dos catálogos de asteroides para apoiar estimativas acessíveis e transparentes.</li>
+        <li><strong>Notas de incerteza:</strong> deixamos claro que são faixas aproximadas, não uma simulação física detalhada.</li>
+      </ul>
+    </section>
+
+    <section id="demo">
+      <h3>Demonstração rápida</h3>
+      <ol>
+        <li><strong>Passo 1:</strong> escolha "Apophis (99942)" na lista de asteroides.</li>
+        <li><strong>Passo 2:</strong> clique em uma cidade no mapa (ex.: Recife).</li>
+        <li><strong>Passo 3:</strong> observe os três anéis de impacto e o resumo de população/infra em cada faixa.</li>
+      </ol>
+      <div class="demo-tip"><strong>Dica:</strong> altere o cenário para "litoral" e compare as diferenças.</div>
+      <div class="demo-image">
+        <!-- <img src="caminho-da-demo.jpg" alt="Captura do simulador com três anéis e painel de resumo"> -->
+        <div class="placeholder">[ Imagem: captura do simulador com três anéis e painel de resumo ]</div>
+      </div>
+    </section>
+
+    <section id="beneficios">
+      <h3>Benefícios do Astrodyn</h3>
+      <ul>
+        <li><strong>Simples e direto:</strong> visualize cenários em segundos, sem fórmulas.</li>
+        <li><strong>Didático:</strong> ideal para aulas, feiras de ciência e projetos de pesquisa inicial.</li>
+        <li><strong>Contextual:</strong> estimativas por local, com população e infraestrutura afetadas.</li>
+        <li><strong>Transparente:</strong> regras de estimativa claras e notas de incerteza visíveis.</li>
+        <li><strong>Leve e acessível:</strong> funciona no navegador, sem instalação.</li>
+      </ul>
+    </section>
+
+    <section id="quem-somos">
+      <h3>Quem somos nós</h3>
+      <p>O Astrodyn é desenvolvido por Daniel Vergara, Felipe Murtinho, Gabriel Ferreira e Francisco Carvalho. Nosso objetivo é apoiar estudantes, cientistas e gestores na compreensão dos impactos de meteoros — incluindo possíveis efeitos ambientais, sociais e econômicos — com uma experiência simples, didática e baseada em dados públicos.</p>
+      <div class="team-photo">
+        <!-- <img src="caminho-da-foto-equipe.jpg" alt="Foto da equipe Astrodyn"> -->
+        <div class="placeholder">[ Foto da equipe Astrodyn ]</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
